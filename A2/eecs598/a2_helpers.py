@@ -76,6 +76,7 @@ def get_toy_data(
     # Generate some random inputs and labels
     toy_X = 10.0 * torch.randn(N, D, device=device, dtype=dtype)
     toy_y = torch.tensor([0, 1, 2, 2, 1], device=device, dtype=torch.int64)
+    #toy_y = torch.tensor([0, 1], device=device, dtype=torch.int64)
 
     return toy_X, toy_y, params
 

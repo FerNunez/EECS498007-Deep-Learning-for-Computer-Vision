@@ -729,14 +729,19 @@ def softmax_loss_vectorized(
     loss = torch.sum(L_vector)/X.shape[0]
     
     
-    #        for j in range(num_class):
-#             dW[:,j] += X[i]* (prob[j] - 1*(j == y[i]) )
+
     
+    #https://towardsdatascience.com/derivative-of-the-softmax-function-and-the-categorical-cross-entropy-loss-ffceefc081d1
+    #dL/dW = dz/dW * dL/dz
+    
+    #dz/dW = X cause z = w*x
+    #dL/dz = s_i - y_i where s_i = e^z_i / sum(e^z_l) and y_i = 1 if correct label 
     # prob - Substract -1 toto correct class by image
     prob[range(prob.shape[0]), y] -=  1
     #print(prob.shape) #torch.Size([128, 10])
     
     #print(X.shape) #torch.Size([128, 3073])
+    # why mult by input? dont get it
     dW = X.t().mm(prob)
     dW /= num_train
     dW += reg*2*W
